@@ -66,6 +66,7 @@ AutoIptables(){
     fi
 }
 echo "测试区域，请勿随意使用"
+echo "1.BBRplus"
 echo "2.一键封禁BT下载，SPAM邮件流量（无法撤销）"
 echo "3.防止暴力破解SS连接信息 (重启后失效)"
 echo "4.布署ss-panel(有风险!)"
@@ -84,11 +85,12 @@ while :; do echo
 	fi
 done
 
-
+if [[ $devc == 1 ]];then
+	wget "https://github.com/cx9208/bbrplus/raw/master/ok_bbrplus_centos.sh" && chmod +x ok_bbrplus_centos.sh && ./ok_bbrplus_centos.sh
+fi
 
 if [[ $devc == 2 ]];then
-	wget -q -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/ban_iptables.sh && chmod +x ban_iptables.sh && bash ban_iptables.sh banall
-	rm -rf ban_iptables.sh
+	bash /usr/local/SSR-Bash-Python/ban_iptables.sh
 fi
 
 if [[ $devc == 3 ]];then

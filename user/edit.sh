@@ -86,7 +86,6 @@ echo "4.修改混淆"
 echo "5.修改协议参数"
 echo "6.修改混淆参数"
 echo "7.修改流量"
-echo "8.修改端口限制"
 echo "9.修改总端口限速"
 echo "10.修改连接数限制"
 echo "11.修改时限"
@@ -373,22 +372,6 @@ if [[ $ec == 7 ]];then
 		python mujson_mgr.py -e -p $uid -t $ut
 		echo "端口号为 $uid 的流量限制已改为 $ut"
 		pqr
-	fi
-fi
-if [[ $ec == 8 ]];then
-	read -p "输入端口限制数量： " ub
-	cd /usr/local/shadowsocksr
-	if [[ $lsid == 1 ]];then
-		cd /usr/local/shadowsocksr
-		python mujson_mgr.py -e -u $uid -o tls1.2_ticket_auth -G $ub
-		#python mujson_mgr.py -e -u $uid -f $ub
-		echo "用户名为 $uid 的端口数量限制已改为 $ub"
-	fi
-	if [[ $lsid == 2 ]];then
-		cd /usr/local/shadowsocksr
-		python mujson_mgr.py -e -p $uid -o tls1.2_ticket_auth -G $ub
-		#python mujson_mgr.py -e -p $uid -f $ub
-		echo "端口号为 $uid 的端口数量限制已改为 $ub"
 	fi
 fi
 

@@ -7,12 +7,13 @@ export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 echo "1.显示所有用户流量信息"
 echo "2.清空指定用户流量"
 echo "3.清空全部用户流量"
+echo "4.定时清空全部用户流量"
 echo "直接回车返回上级菜单"
 
 while :; do echo
 	read -p "请选择： " tc
 	[ -z "$tc" ] && ssr && break
-	if [[ ! $tc =~ ^[1-3]$ ]]; then
+	if [[ ! $tc =~ ^[1-4]$ ]]; then
 		echo "输入错误! 请输入正确的数字!"
 	else
 		break
@@ -41,7 +42,7 @@ if [[ $tc == 2 ]];then
 		if [[ ! $lsid =~ ^[1-2]$ ]]; then
 			echo "输入错误! 请输入正确的数字!"
 		else
-			break	
+			break
 		fi
 	done
 
@@ -51,7 +52,7 @@ if [[ $tc == 2 ]];then
 		python mujson_mgr.py -c -u $uid
 		echo "已清空用户名为 ${uid} 的用户流量"
 	fi
-	
+
 	if [[ $lsid == 2 ]];then
 		read -p "输入端口号： " uid
 		cd /usr/local/shadowsocksr
@@ -71,3 +72,31 @@ if [[ $tc == 3 ]];then
 	bash /usr/local/SSR-Bash-Python/traffic.sh
 fi
 
+if [[ $tc == 4 ]];then
+	echo "1.定时清空所有流量(每月1号0点1分)"
+	echo "2.取消清除"
+	while :; do echo
+		read -p "输入操作方式： " ct
+		if [[ ! $ct =~ ^[1-2]$ ]]; then
+			echo "输入错误! 请输入正确的数字!"
+		else
+			break
+		fi
+	done
+fi
+
+if [[ $ct == 1 ]];then
+	echo "1 0 1 * * root /usr/local/SSR-Bash-Python/timeclean.sh" >> /etc/crontab
+	isaddtimeclean=$(cat "/etc/crontab"|grep 'timeclean')
+	if [[ ! -z ${isaddtimeclean} ]]; then
+		echo "设置成功"
+	fi
+fi
+
+if [[ $ct == 2 ]];then
+	sed -i '/.*timeclean.sh$/d' /etc/crontab
+	isdeletimeclean=$(cat "/etc/crontab"|grep 'timeclean')
+	if [[ -z ${isdeletimeclean} ]]; then
+		echo "设置成功"
+	fi
+fi

@@ -33,11 +33,11 @@ fi
 #Check Root
 [ $(id -u) != "0" ] && { echo "Error: You must be root to run this script"; exit 1; }
 
-rand(){  
-    min=$1  
-    max=$(($2-$min+1))  
-    num=$(cat /dev/urandom | head -n 10 | cksum | awk -F ' ' '{print $1}')  
-    echo $(($num%$max+$min))  
+rand(){
+    min=$1
+    max=$(($2-$min+1))
+    num=$(cat /dev/urandom | head -n 10 | cksum | awk -F ' ' '{print $1}')
+    echo $(($num%$max+$min))
 }
 
 source /usr/local/SSR-Bash-Python/easyadd.conf
@@ -56,14 +56,25 @@ while :;do
 	fi
 done
 read -p "输入密码： " upass
+
 while :; do echo
-	read -p "输入流量限制(只需输入数字，单位：GB)： " ut
-	if [[ "$ut" =~ ^(-?|\+?)[0-9]+(\.?[0-9]+)?$ ]];then
-	   break
+	read -p "是否限制设备数 y/n： " iflimitport
+	if [[ ${iflimitport} == y ]]; then
+		read -p "输入允许的连接数： " uparam
+			if [[ "$uparam" =~ ^(-?|\+?)[1-9]+(\.?[1-9]+)?$ ]];then
+	   			break
+			else
+	   			echo 'Input Error!'
+			fi
+	elif [[ ${iflimitport} == n ]]; then
+		uparam="无限"
+		break
 	else
-	   echo 'Input Error!'
+		echo "输入错误! 请输入y或者n!"
 	fi
 done
+
+
 if [[ ${iflimittime} == y ]]; then
 	bash /usr/local/SSR-Bash-Python/timelimit.sh a ${uport} ${limit}
 	datelimit=$(cat /usr/local/SSR-Bash-Python/timelimit.db | grep "${uport}:" | awk -F":" '{ print $2 }' | sed 's/\([0-9]\{4\}\)\([0-9]\{2\}\)\([0-9}\{2\}\)\([0-9]\{2\}\)\([0-9]\{2\}\)/\1年\2月\3日 \4:/')
@@ -98,9 +109,17 @@ fi
 echo "用户添加成功！用户信息如下："
 cd /usr/local/shadowsocksr
 if [[ $iflimitspeed == y ]]; then
-	python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut -S $us
+	if [[ $iflimitport == y ]]; then
+		python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut -S $us -G $uparam
+	else
+		python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut -S $us
+	fi
 else
-	python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut
+	if [[ $iflimitport == y ]]; then
+		python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut -G $uparam
+	else
+		python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut
+	fi
 fi
 
 SSRPID=$(ps -ef | grep 'server.py m' | grep -v grep | awk '{print $2}')
@@ -124,6 +143,6 @@ echo "加密方法: $um1"
 echo "协议: $ux1"
 echo "混淆方式: $uo1"
 echo "流量: $ut GB"
-echo "允许连接数: 不限"
+echo "允许连接数: $uparam"
 echo "帐号有效期: $datelimit"
 echo "===================="

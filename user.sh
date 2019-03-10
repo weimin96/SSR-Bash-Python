@@ -41,18 +41,19 @@ echo '6.显示用户名端口信息'
 echo '7.查看端口用户连接状况'
 echo '8.生成用户二维码'
 echo '9.为已有帐号添加有效期'
+echo '0.查看所有端口用户连接状况'
 echo "直接回车返回上级菜单"
 
 while :; do echo
 	read -p "请选择： " userc
-        if [[ -z "$userc" ]];then  
+        if [[ -z "$userc" ]];then
                 ssr
                 break
         fi
-	if [[ ! $userc =~ ^[1-9]$ ]]; then
+	if [[ ! $userc =~ ^[0-9]$ ]]; then
 		echo "输入错误! 请输入正确的数字!"
 	else
-		break	
+		break
 	fi
 done
 
@@ -89,7 +90,7 @@ if [[ $userc == 5 ]];then
 		if [[ ! $lsid =~ ^[1-2]$ ]]; then
 			echo "输入错误! 请输入正确的数字!"
 		else
-			break	
+			break
 		fi
 	done
 	if [[ $lsid == 1 ]];then
@@ -148,7 +149,7 @@ if [[ $userc == 7 ]];then
 				i=$((i+1))
 			done
 			echo "你可以输入IP地址，将其加入黑名单，这将不能撤销（按回车键返回）"
-			while : 
+			while :
 			do
 				read ip
 				if [[ -z ${ip} ]];then
@@ -171,7 +172,7 @@ if [[ $userc == 7 ]];then
 			if [[ ! -z ${banip} ]];then
 				echo "IP地址 ${ip} 已存在于禁封列表，请勿再次执行！"
 				echo "当前封禁列表:"
-				iptables --list-rules | grep 'DROP' | grep -E -o "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" | sort | uniq -c | sort -nr 
+				iptables --list-rules | grep 'DROP' | grep -E -o "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" | sort | uniq -c | sort -nr
 				bash /usr/local/SSR-Bash-Python/user.sh
 				exit 0
 			fi
@@ -214,6 +215,32 @@ fi
 
 if [[ $userc == 9 ]];then
 	bash /usr/local/SSR-Bash-Python/timelimit.sh a
+	bash /usr/local/SSR-Bash-Python/user.sh
+fi
+
+if [[ $userc == 0 ]];then
+	for uid in `netstat -anlt | awk '{print $4}' | sed -e '1,2d' | awk -F : '{print $NF}' | sort -n | uniq`
+	do
+		n=$(netstat -ntu | grep :${uid} | grep  "ESTABLISHED" | awk '{print $5}' | cut -d : -f 1 | sort -u | wc -l)
+			echo -e "当前端口号 \e[41;37m${uid}\e[0m 共有 \e[42;37m${n}\e[0m 位用户连接"
+			i=1
+			for ips in `netstat -ntu | grep :${uid} | grep  "ESTABLISHED" | awk '{print $5}' | cut -d : -f 1 | sort -u`
+			do
+				if [[ $i -ge 3 ]];then
+					sleep 1s
+				fi
+				if [[ $i -ge 5 ]];then
+					sleep 2s
+				fi
+                theip=$(curl -L -s ip.cn/${ips})
+                if [[ -z ${theip} ]];then
+                    ipadd=$(curl -L -s freeapi.ipip.net/${ips} | sed 's/\"//g;s/,//g;s/\[//g;s/\]//g')
+                    theip=$(echo "当前 IP: ${ips} 来自: ${ipadd}")
+                fi
+                echo ${theip}
+				i=$((i+1))
+			done
+	done
 	bash /usr/local/SSR-Bash-Python/user.sh
 fi
 exit 0
