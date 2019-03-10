@@ -50,8 +50,7 @@ fi
 echo
 echo "*******************"
 echo ""
-echo -e "欢迎使用 AR (Python Base) Beta\n"
-echo -e "每日一言：\033[32m$(yiyan)\033[0m\n"
+echo -e "欢迎使用 ssr控制面板\n"
 echo "输入数字选择功能："
 echo ""
 echo "1.服务器控制"
@@ -66,9 +65,9 @@ while :; do echo
 	if [[ ! $choice =~ ^[0-6]$ ]]; then
 		echo "输入错误! 请输入正确的数字!"
 	else
-		echo 
-		echo 
-		break	
+		echo
+		echo
+		break
 	fi
 done
 

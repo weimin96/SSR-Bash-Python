@@ -52,7 +52,7 @@ AutoIptables(){
                for port in `cat ./port.conf`; do iptables -I INPUT -m state --state NEW -m udp -p udp --dport $port -j ACCEPT ; done
                iptables-save > /etc/iptables.up.rules
            else
-               for port in `cat ./port.conf`; do iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport $port -j ACCEPT ; done 
+               for port in `cat ./port.conf`; do iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport $port -j ACCEPT ; done
                for port in `cat ./port.conf`; do iptables -I INPUT -m state --state NEW -m udp -p udp --dport $port -j ACCEPT ; done
                /etc/init.d/iptables save
                /etc/init.d/iptables restart
@@ -66,7 +66,6 @@ AutoIptables(){
     fi
 }
 echo "测试区域，请勿随意使用"
-echo "1.更新SSR-Bsah"
 echo "2.一键封禁BT下载，SPAM邮件流量（无法撤销）"
 echo "3.防止暴力破解SS连接信息 (重启后失效)"
 echo "4.布署ss-panel(有风险!)"
@@ -81,19 +80,11 @@ while :; do echo
 	if [[ ! $devc =~ ^[1-9]$ ]]; then
 		echo "输入错误! 请输入正确的数字!"
 	else
-		break	
+		break
 	fi
 done
 
-if [[ $devc == 1 ]];then
-	rm -rf /usr/local/bin/ssr
-	cd /usr/local/SSR-Bash-Python/
-	git pull
-	wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/readour/AR-B-P-B/develop/ssr
-	chmod +x /usr/local/bin/ssr
-	echo 'SSR-Bash升级成功！'
-	ssr
-fi
+
 
 if [[ $devc == 2 ]];then
 	wget -q -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/ban_iptables.sh && chmod +x ban_iptables.sh && bash ban_iptables.sh banall
@@ -134,7 +125,7 @@ if [[ ! -e bbr.sh ]]; then
 	fi
 fi
 }
-if [[ $devc == 5 ]];then 
+if [[ $devc == 5 ]];then
 	[[ $OS = "CentOS" ]] && echo "本脚本不支持 CentOS系统 BBR !" && exit 1
 	echo "你要做什么？"
 	echo "1.安装 BBR"
@@ -149,7 +140,7 @@ if [[ $devc == 5 ]];then
 	if [[ ! $ubbr =~ ^[1-4]$ ]]; then
 		echo "输入错误! 请输入正确的数字!"
 	else
-		break	
+		break
 	fi
 	done
 	if [[ $ubbr == 1 ]];then
@@ -217,7 +208,7 @@ if [[ $devc == 6 ]];then
 	if [[ ! $urz =~ ^[1-6]$ ]]; then
 		echo "输入错误! 请输入正确的数字!"
 	else
-		break	
+		break
 	fi
 	done
 	if [[ $urz == 1 ]];then
@@ -283,13 +274,13 @@ if [[ $devc == 7 ]];then
 	if [[ ! $uls =~ ^[1-6]$ ]]; then
 		echo "输入错误! 请输入正确的数字!"
 	else
-		break	
+		break
 	fi
 	done
 	if [[ $uls == 1 ]];then
 		install_ls
 	fi
-	if [[ $uls == 2 ]];then 
+	if [[ $uls == 2 ]];then
 		echo "确定要卸载 LotServer？[y/N]" && echo
 		stty erase '^H' && read -p "(默认: n):" unyn
 		[[ -z ${unyn} ]] && echo && echo "已取消..." && exit 1
