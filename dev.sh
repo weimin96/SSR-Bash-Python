@@ -69,8 +69,6 @@ echo "高级功能"
 echo "1.BBRplus加速"
 echo "2.一键封禁BT下载，SPAM邮件流量（无法撤销）"
 echo "3.防止暴力破解SS连接信息 (重启后失效)"
-echo "5.BBR 控制台"
-echo "6.锐速 控制台"
 echo "直接回车返回上级菜单"
 while :; do echo
 	read -p "请选择： " devc
