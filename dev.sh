@@ -75,7 +75,7 @@ echo "直接回车返回上级菜单"
 while :; do echo
 	read -p "请选择： " devc
 	[ -z "$devc" ] && ssr && break
-	if [[ ! $devc =~ ^[1-3]$ ]]; then
+	if [[ ! $devc =~ ^[1-6]$ ]]; then
 		echo "输入错误! 请输入正确的数字!"
 	else
 		break
@@ -224,6 +224,70 @@ if [[ $devc == 6 ]];then
   if [[ $urz == 6 ]];then
     [[ ! -e /serverspeeder/bin/serverSpeeder.sh ]] && echo "没有安装 锐速(Server Speeder)，请检查 !" && exit 1
     /serverspeeder/bin/serverSpeeder.sh status
+  fi
+fi
+install_ls(){
+  [[ -e /appex/bin/serverSpeeder.sh ]] && echo "LotServer 已安装 !" && exit 1
+  #Github: https://github.com/0oVicero0/serverSpeeder_Install
+  wget --no-check-certificate -qO /tmp/appex.sh "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_Install/master/appex.sh"
+  [[ ! -e "/tmp/appex.sh" ]] && echo "LotServer 安装脚本下载失败 !" && exit 1
+  bash /tmp/appex.sh 'install'
+  sleep 2s
+  PID=`ps -ef |grep -v grep |grep "appex" |awk '{print $2}'`
+  if [[ ! -z ${PID} ]]; then
+    echo "LotServer 安装完成 !" && exit 1
+  else
+    echo "LotServer 安装失败 !" && exit 1
+  fi
+}
+if [[ $devc == 7 ]];then
+  echo "你要做什么？"
+  echo "1.安装 LotServer"
+  echo "2.卸载 LotServer"
+  echo "————————"
+  echo "3.启动 LotServer"
+  echo "4.停止 LotServer"
+  echo "5.重启 LotServer"
+  echo "6.查看 LotServer 状态"
+  echo "注意： 锐速和LotServer不能同时安装/启动！"
+  while :; do echo
+  read -p "请选择： " uls
+  [ -z "$uls" ] && ssr && break
+  if [[ ! $uls =~ ^[1-6]$ ]]; then
+    echo "输入错误! 请输入正确的数字!"
+  else
+    break
+  fi
+  done
+  if [[ $uls == 1 ]];then
+    install_ls
+  fi
+  if [[ $uls == 2 ]];then
+    echo "确定要卸载 LotServer？[y/N]" && echo
+    stty erase '^H' && read -p "(默认: n):" unyn
+    [[ -z ${unyn} ]] && echo && echo "已取消..." && exit 1
+    if [[ ${unyn} == [Yy] ]]; then
+      wget --no-check-certificate -qO /tmp/appex.sh "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_Install/master/appex.sh" && bash /tmp/appex.sh 'uninstall'
+      echo && echo "LotServer 卸载完成 !" && echo
+    fi
+  fi
+  if [[ $uls == 3 ]];then
+    [[ ! -e /appex/bin/serverSpeeder.sh ]] && echo "没有安装 LotServer，请检查 !" && exit 1
+    /appex/bin/serverSpeeder.sh start
+    /appex/bin/serverSpeeder.sh status
+  fi
+  if [[ $uls == 4 ]];then
+    [[ ! -e /appex/bin/serverSpeeder.sh ]] && echo "没有安装 LotServer，请检查 !" && exit 1
+    /appex/bin/serverSpeeder.sh stop
+  fi
+  if [[ $uls == 5 ]];then
+    [[ ! -e /appex/bin/serverSpeeder.sh ]] && echo "没有安装 LotServer，请检查 !" && exit 1
+    /appex/bin/serverSpeeder.sh restart
+    /appex/bin/serverSpeeder.sh status
+  fi
+  if [[ $uls == 6 ]];then
+    [[ ! -e /appex/bin/serverSpeeder.sh ]] && echo "没有安装 LotServer，请检查 !" && exit 1
+    /appex/bin/serverSpeeder.sh status
   fi
 fi
 exit 0
