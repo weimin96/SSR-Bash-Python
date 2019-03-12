@@ -49,7 +49,7 @@ if [[ $uname == "" ]];then
 	bash /usr/local/SSR-Bash-Python/user.sh || exit 0
 fi
 while :;do
-	uport=$(rand 8000 8999)
+	uport=$(rand 8100 8999)
 	port=`netstat -anlt | awk '{print $4}' | sed -e '1,2d' | awk -F : '{print $NF}' | sort -n | uniq | grep "$uport"`
 	if [[ -z ${port} ]];then
 		break
