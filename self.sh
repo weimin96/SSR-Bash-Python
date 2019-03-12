@@ -37,7 +37,7 @@ updateme(){
 	if [[ -e ~/version.txt ]];then
 		rm -f ~/version.txt
 	fi
-	wget -q https://git.fdos.me/stack/AR-B-P-B/raw/develop/version.txt
+	wget -q https://raw.githubusercontent.com/weimin96/SSR-Bash-Python/master/version.txt
 	version1=`cat ~/version.txt`
 	version2=`cat /usr/local/SSR-Bash-Python/version.txt`
 	if [[ "$version1" == "$version2" ]];then
@@ -49,7 +49,7 @@ updateme(){
 		read -n 1 yn
 		if [[ $yn == [Yy] ]];then
 			export yn=n
-			wget -q -N --no-check-certificate https://git.fdos.me/stack/AR-B-P-B/raw/master/install.sh && bash install.sh develop
+			wget -q -N --no-check-certificate https://raw.githubusercontent.com/weimin96/SSR-Bash-Python/master/install.sh && bash install.sh
 			sleep 3s
 			clear
 			ssr || exit 0
