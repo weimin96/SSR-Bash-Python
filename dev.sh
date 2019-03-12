@@ -85,7 +85,8 @@ if [[ $devc == 1 ]];then
 fi
 
 if [[ $devc == 2 ]];then
-	bash /usr/local/SSR-Bash-Python/ban_iptables.sh
+  wget -q -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/ban_iptables.sh && chmod +x ban_iptables.sh && bash ban_iptables.sh banall
+  rm -rf ban_iptables.sh
 fi
 
 if [[ $devc == 3 ]];then
