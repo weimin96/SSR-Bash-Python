@@ -29,6 +29,38 @@ if [[ ${log_filesize} -ge ${log_max} ]];then
 fi
 fi
 
+addition(){
+while read line;
+do
+    new=$(echo "${line}+${new}" | bc 2>/dev/null)
+    if [[ -z ${new} ]];then
+         new=${line}
+    fi
+done
+echo "${new}"
+}
+
+#单位转换
+convert(){
+while read usage;
+do
+    if [ "${usage}" -gt 0 -a "${usage}" -lt 1024 ] ; then
+		usage="${usage}B"
+    elif [ "${usage}" -ge 1024 -a "${usage}" -lt 1048576 ] ; then
+		usage="$(echo "scale=2; ${usage} / 1024" | bc)KB"
+    elif [ "${usage}" -ge 1048576 -a "${usage}" -lt 1073741824 ] ; then
+		usage="$(echo "scale=2; ${usage} / 1048576" | bc)MB"
+    elif [ "${usage}" -ge 1073741824 -a "${usage}" -lt 1099511627776 ] ; then
+		usage="$(echo "scale=2; ${usage} / 1073741824" | bc)GB"
+    elif [ "${usage}" -ge 1099511627776 -a "${usage}" -lt 1125899906842624 ] ; then
+		usage="$(echo "scale=2; ${usage} / 1099511627776" | bc)TB"
+	elif [ "${usage}" -ge 1125899906842624 ] ; then
+		usage="$(echo "scale=2; ${usage} / 1125899906842624" | bc)PB"
+    fi
+    echo "${usage}"
+done
+}
+
 checkup(){
 	nowdate=$(date +%Y-%m-%d)
 	wget -q https://raw.githubusercontent.com/weimin96/SSR-Bash-Python/master/version.txt
