@@ -211,21 +211,11 @@ if [[ -d /usr/local/SSR-Bash-Python ]];then
         cd /usr/local
         git clone https://github.com/weimin96/SSR-Bash-Python.git
     fi
-    cd /usr/local/SSR-Bash-Python
-    git checkout master
-    git pull
-    if [[ $1 == "develop" ]];then
-        git checkout develop
-        git pull
-    fi
 else
     cd /usr/local
     git clone https://github.com/weimin96/SSR-Bash-Python.git
     cd SSR-Bash-Python
     git checkout master
-    if [[ $1 == "develop" ]];then
-        git checkout develop
-    fi
     cd ..
     bashinstall="no"
 fi
