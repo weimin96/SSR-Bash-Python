@@ -86,7 +86,6 @@ echo "2.用户管理"
 echo "3.全局流量管理"
 echo "4.高级功能"
 echo "5.程序管理"
-echo "6.一键添加用户"
 echo "0.退出程序"
 while :; do echo
 	read -p "请选择： " choice
@@ -121,9 +120,4 @@ fi
 
 if [[ $choice == 5 ]];then
 	bash /usr/local/SSR-Bash-Python/self.sh
-fi
-
-if [[ $choice == 6 ]];then
-	bash /usr/local/SSR-Bash-Python/user/easyadd.sh
-	ssr
 fi
