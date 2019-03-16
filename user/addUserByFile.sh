@@ -14,7 +14,7 @@ do
         uname=${array[1]}
         checkuid=$(python mujson_mgr.py -l -u $uname 2>/dev/null)
         if [[ ${checkuid} ]];then
-             "用户${uname}已存在"
+            echo "用户${uname}已存在"
 			continue
 		fi
 
