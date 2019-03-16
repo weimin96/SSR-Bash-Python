@@ -7,32 +7,32 @@ do
     if [[ $line == -* ]]; then
         echo $line
         array=(${line//|/ })
-        uname=$array[1]
+        uname=${array[1]}
         checkuid=$(python mujson_mgr.py -l -u $uname 2>/dev/null)
         if [[ ${checkuid} ]];then
              "用户${uname}已存在"
 			continue
 		fi
 
-        uport=$array[2]
+        uport=${array[2]}
         port=`netstat -anlt | awk '{print $4}' | sed -e '1,2d' | awk -F : '{print $NF}' | sort -n | uniq | grep '$uport' `
 		if [[ ${port} ]];then
 			echo "端口${port}已存在"
 			continue
 		fi
-        upass=$array[3]
+        upass=${array[3]}
         # 加密方式
-        um1=$array[4]
+        um1=${array[4]}
         # 协议
-        ux1=$array[5]
+        ux1=${array[5]}
         # 混淆
-        uo1=$array[6]
+        uo1=${array[6]}
         # 限流
-        ut=$array[7]
+        ut=${array[7]}
         # 允许连接数
-        uparam=$array[8]
+        uparam=${array[8]}
         # 限速值
-        us=$array[9]
+        us=${array[9]}
         echo "===================="
 		echo "用户名: $uname"
 		echo "远程端口号: $uport"
