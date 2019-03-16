@@ -49,7 +49,8 @@ updateme(){
 		read -n 1 yn
 		if [[ $yn == [Yy] ]];then
 			export yn=n
-			wget -q -N --no-check-certificate https://raw.githubusercontent.com/weimin96/SSR-Bash-Python/master/install.sh && bash install.sh
+			bash /usr/local/SSR-Bash-Python/projectmanage/update.sh
+			# wget -q -N --no-check-certificate https://raw.githubusercontent.com/weimin96/SSR-Bash-Python/master/install.sh && bash install.sh
 			sleep 3s
 			clear
 			ssr || exit 0
@@ -91,13 +92,13 @@ backup(){
 	fi
 }
 recover(){
-mkdir -p ${HOME}/backup 
+mkdir -p ${HOME}/backup
 echo "这将会导致你现有的配置被覆盖"
 sumdc
 if [[ "$sv" == "$solve" ]];then
     bakf=$(ls ${HOME}/backup | wc -l)
     if [[ ${bakf} != 1 ]];then
-        cd /usr/local/SSR-Bash-Python/Explorer 
+        cd /usr/local/SSR-Bash-Python/Explorer
         if [[ ! -e /bin/usleep  ]];then
             gcc -o /bin/usleep ./usleep.c
         fi
@@ -113,7 +114,7 @@ if [[ "$sv" == "$solve" ]];then
         fi
     fi
 	if [[ -z ${bakfile} ]];then
-		bakfile=${HOME}/backup/ssr-conf.tar.gz 
+		bakfile=${HOME}/backup/ssr-conf.tar.gz
 	fi
 	if [[ -e ${bakfile} ]];then
         cd ${HOME}/backup
@@ -139,7 +140,7 @@ if [[ "$sv" == "$solve" ]];then
 				iptables-save > /etc/iptables.up.rules
 				iptables -vnL
 			else
-				for port in `cat ./port.conf`; do iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport $port -j ACCEPT ; done 
+				for port in `cat ./port.conf`; do iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport $port -j ACCEPT ; done
 				for port in `cat ./port.conf`; do iptables -I INPUT -m state --state NEW -m udp -p udp --dport $port -j ACCEPT ; done
 				/etc/init.d/iptables save
 				/etc/init.d/iptables restart
@@ -179,7 +180,7 @@ while :; do echo
 		[ -z "$choice" ] && ssr && break
 		echo "输入错误! 请输入正确的数字!"
 	else
-		break	
+		break
 	fi
 done
 

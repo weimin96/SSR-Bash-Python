@@ -41,6 +41,7 @@ echo '6.显示用户名端口信息'
 echo '7.查看端口用户连接状况'
 echo '8.生成用户二维码'
 echo '9.为已有帐号添加有效期'
+echo '10.从文件导入用户'
 echo '0.查看所有端口用户连接状况'
 echo "直接回车返回上级菜单"
 
@@ -50,7 +51,7 @@ while :; do echo
                 ssr
                 break
         fi
-	if [[ ! $userc =~ ^[0-9]$ ]]; then
+	if [[ ! $userc =~ ^[0-10]$ ]]; then
 		echo "输入错误! 请输入正确的数字!"
 	else
 		break
@@ -242,6 +243,12 @@ if [[ $userc == 0 ]];then
 				i=$((i+1))
 			done
 	done
+	bash /usr/local/SSR-Bash-Python/user.sh
+fi
+
+if [[ $userc == 10 ]];then
+	bash /usr/local/SSR-Bash-Python/user/addUserByFile.sh
+	echo ""
 	bash /usr/local/SSR-Bash-Python/user.sh
 fi
 exit 0
