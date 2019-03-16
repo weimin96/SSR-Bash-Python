@@ -251,6 +251,6 @@ fi
 if [[ $userc == 10 ]];then
 	bash /usr/local/SSR-Bash-Python/user/addUserByFile.sh
 	echo ""
-	# bash /usr/local/SSR-Bash-Python/user.sh
+	bash /usr/local/SSR-Bash-Python/user.sh
 fi
 exit 0

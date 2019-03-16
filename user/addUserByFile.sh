@@ -1,6 +1,10 @@
 #!/bin/bash
 export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
+
+echo "文件路径：/usr/local/SSR-Bash-Python/user/userData"
+echo "格式说明： -|用户名|端口|密码|加密方式|协议|混淆|限流|允许连接数|限速|"
+
 cd /usr/local/shadowsocksr
 cat /usr/local/SSR-Bash-Python/user/userData | while read line
 do
