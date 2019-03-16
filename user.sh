@@ -47,11 +47,11 @@ echo "直接回车返回上级菜单"
 
 while :; do echo
 	read -p "请选择： " userc
-        if [[ -z "$userc" ]];then
-                ssr
-                break
-        fi
-	if [[ ! $userc =~ ^[0-10]$ ]]; then
+	[ -z "$userc" ] && ssr && break
+	if [[ ! $userc =~ ^[1-9]$ ]]; then
+		if [[ $userc == 10 ]]; then
+			break
+		fi
 		echo "输入错误! 请输入正确的数字!"
 	else
 		break
