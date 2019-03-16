@@ -226,7 +226,7 @@ if [[ $userc == 0 ]];then
 			if [ $uid -gt 8999 -o $uid -lt 8100 ]; then
 				continue
 			fi
-			echo -e "当前端口号 \e[41;37m${uid}\e[0m 共有 \e[42;37m${n}\e[0m 位用户连接"
+			echo -e "当前端口号 \e[41;37m${uid}\e[0m 共有 \e[43;37m${n}\e[0m 位用户连接"
 			i=1
 			for ips in `netstat -ntu | grep :${uid} | grep  "ESTABLISHED" | awk '{print $5}' | cut -d : -f 1 | sort -u`
 			do
