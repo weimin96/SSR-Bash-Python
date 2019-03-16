@@ -12,6 +12,4 @@ do
         done
     fi
 done
-
-
 # python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut -S $us -G $uparam
