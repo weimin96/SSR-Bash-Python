@@ -168,8 +168,8 @@ fi
 #Show
 echo "输入数字选择功能："
 echo ""
-echo "1.检查更新"
-echo "2.切换到普通版"
+echo "1.检查版本"
+echo "2.更新程序"
 echo "3.程序自检"
 echo "4.卸载程序"
 echo "5.备份配置"
@@ -188,15 +188,16 @@ if [[ $choice == 1 ]];then
         updateme
 fi
 if [[ $choice == 2 ]];then
-	echo "切换到普通版之后你将无法使用一些功能"
-	sumdc
-	if [[ "$sv" == "$solve" ]];then
-		bash /usr/local/SSR-Bash-Python/install.sh
+	echo "输入y进行更新，其它按键退出"
+	read -n 1 yn
+	if [[ $yn == [Yy] ]];then
+		export yn=n
+		bash /usr/local/SSR-Bash-Python/projectmanage/update.sh
 		sleep 3s
 		clear
 		ssr || exit 0
 	else
-		echo "计算错误，正确结果为$solve"
+		echo "退出"
 		bash /usr/local/SSR-Bash-Python/self.sh
 	fi
 fi
