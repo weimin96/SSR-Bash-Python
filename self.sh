@@ -194,7 +194,6 @@ if [[ $choice == 2 ]];then
 		export yn=n
 		bash /usr/local/SSR-Bash-Python/projectmanage/update.sh
 		sleep 3s
-		clear
 		ssr || exit 0
 	else
 		echo "退出"
