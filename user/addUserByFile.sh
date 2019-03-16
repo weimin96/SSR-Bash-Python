@@ -43,7 +43,7 @@ do
 		echo "混淆方式: $uo1"
 		echo "流量: $ut GB"
 		echo "允许连接数: $uparam"
-		echo "最大速度: $us kb/s"
+		echo "最大速度: $us k"
 		echo "===================="
     fi
 done
