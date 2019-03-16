@@ -35,8 +35,8 @@ do
             uparam=$var[8]
             # 限速值
             us=$var[9]
-
-            echo "===================="
+        done
+        echo "===================="
 			echo "用户名: $uname"
 			echo "远程端口号: $uport"
 			echo "密码: $upass"
@@ -47,7 +47,6 @@ do
 			echo "允许连接数: $uparam"
 			echo "最大速度: $us kb/s"
 			echo "===================="
-        done
     fi
 done
 # python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut -S $us -G $uparam
