@@ -200,6 +200,7 @@ if [[ $choice == 2 ]];then
 		git clone https://github.com/weimin96/SSR-Bash-Python.git
 		cd /usr/local/SSR-Bash-Python
 		sleep 3s
+		clear
 		ssr || exit 0
 	else
 		echo "退出"
