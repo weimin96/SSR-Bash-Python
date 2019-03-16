@@ -49,7 +49,10 @@ updateme(){
 		read -n 1 yn
 		if [[ $yn == [Yy] ]];then
 			export yn=n
-			bash /usr/local/SSR-Bash-Python/projectmanage/update.sh
+			rm -rf /usr/local/SSR-Bash-Python
+			cd /usr/local
+			git clone https://github.com/weimin96/SSR-Bash-Python.git
+			cd /usr/local/SSR-Bash-Python
 			# wget -q -N --no-check-certificate https://raw.githubusercontent.com/weimin96/SSR-Bash-Python/master/install.sh && bash install.sh
 			sleep 3s
 			clear
@@ -192,7 +195,10 @@ if [[ $choice == 2 ]];then
 	read -n 1 yn
 	if [[ $yn == [Yy] ]];then
 		export yn=n
-		bash /usr/local/SSR-Bash-Python/projectmanage/update.sh
+		rm -rf /usr/local/SSR-Bash-Python
+		cd /usr/local
+		git clone https://github.com/weimin96/SSR-Bash-Python.git
+		cd /usr/local/SSR-Bash-Python
 		sleep 3s
 		ssr || exit 0
 	else
