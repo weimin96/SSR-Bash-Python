@@ -2,7 +2,7 @@
 export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 
-cat /usr/local/userData | while read line
+cat /usr/local/SSR-Bash-Python/user/userData | while read line
 do
     if [[ $str == -* ]]; then
         echo $line
