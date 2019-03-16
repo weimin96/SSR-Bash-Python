@@ -17,8 +17,8 @@ do
 			fi
 
             uport=$var[2]
-            port=`netstat -anlt | awk '{print $4}' | sed -e '1,2d' | awk -F : '{print $NF}' | sort -n | uniq | grep "$uport"`
-			if [[ -z ${port} ]];then
+            port=`netstat -anlt | awk '{print $4}' | sed -e '1,2d' | awk -F : '{print $NF}' | sort -n | uniq | grep $uport`
+			if [[ ${port} ]];then
 				echo "端口${port}已存在"
 				break
 			fi
