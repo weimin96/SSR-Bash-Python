@@ -1,6 +1,7 @@
 #!/bin/bash
 export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
+
 cat /usr/local/userData | while read line
 do
     if [[ $str == -* ]]; then
