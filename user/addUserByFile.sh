@@ -33,6 +33,7 @@ do
         uparam=${array[8]}
         # 限速值
         us=${array[9]}
+        python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut -S $us -G $uparam
         echo "===================="
 		echo "用户名: $uname"
 		echo "远程端口号: $uport"
@@ -46,4 +47,4 @@ do
 		echo "===================="
     fi
 done
-# python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut -S $us -G $uparam
+
