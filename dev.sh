@@ -69,11 +69,12 @@ echo "高级功能"
 echo "1.BBRplus加速"
 echo "2.一键封禁BT下载，SPAM邮件流量（无法撤销）"
 echo "3.防止暴力破解SS连接信息 (重启后失效)"
+echo "4.魔改bbr"
 echo "直接回车返回上级菜单"
 while :; do echo
 	read -p "请选择： " devc
 	[ -z "$devc" ] && ssr && break
-	if [[ ! $devc =~ ^[1-3]$ ]]; then
+	if [[ ! $devc =~ ^[1-4]$ ]]; then
 		echo "输入错误! 请输入正确的数字!"
 	else
 		break
@@ -92,5 +93,10 @@ fi
 if [[ $devc == 3 ]];then
 	nohup tail -F /usr/local/shadowsocksr/ssserver.log | python autoban.py >log 2>log &
 fi
+
+if [[ $devc == 4 ]];then
+  wget -N --no-check-certificate "https://raw.githubusercontent.com/chiakge/Linux-NetSpeed/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
+fi
+
 
 exit 0

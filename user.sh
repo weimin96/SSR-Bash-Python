@@ -48,7 +48,7 @@ echo "直接回车返回上级菜单"
 while :; do echo
 	read -p "请选择： " userc
 	[ -z "$userc" ] && ssr && break
-	if [[ ! $userc =~ ^[1-9]$ ]]; then
+	if [[ ! $userc =~ ^[0-9]$ ]]; then
 		if [[ $userc == 10 ]]; then
 			break
 		fi
