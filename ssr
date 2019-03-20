@@ -61,24 +61,13 @@ do
 done
 }
 
-checkup(){
-	wget -q https://raw.githubusercontent.com/weimin96/SSR-Bash-Python/master/version.txt
-	version1=`cat ~/version.txt`
-	version2=`cat /usr/local/SSR-Bash-Python/version.txt`
-	if [[ "$version1" == "$version2" ]];then
-		echo " V${version2}"
-	else
-		echo "(有新版本 V${version1})"
-	fi
-}
-
 RX="$(cat /proc/net/dev | sed -n '/lo:/d;/:/p' | awk '{ print $2 }' | addition | convert )"
 TX="$(cat /proc/net/dev | sed -n '/lo:/d;/:/p' | awk '{ print $10 }' | addition | convert)"
 
 echo
 echo "*******************"
 echo ""
-echo -e "欢迎使用 ssr控制面板\033[32m$(checkup)\033[0m\n"
+echo "欢迎使用 ssr控制面板"
 echo -e "全局流量统计：发送:\033[40;34;1m${TX}\033[0m  接收:\033[40;34;1m${RX}\033[0m"
 echo "输入数字选择功能："
 echo "1.服务器控制"
