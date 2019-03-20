@@ -448,7 +448,6 @@ fi
 #Install SSR-Bash Background
 wget -q -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/weimin96/SSR-Bash-Python/master/ssr
 chmod +x /usr/local/bin/ssr
-fi
 
 #Modify ShadowsocksR API
 sed -i "s/sspanelv2/mudbjson/g" /usr/local/shadowsocksr/userapiconfig.py
