@@ -69,7 +69,7 @@ echo "高级功能"
 echo "1.BBRplus加速"
 echo "2.一键封禁BT下载，SPAM邮件流量（无法撤销）"
 echo "3.防止暴力破解SS连接信息 (重启后失效)"
-echo "4.魔改bbr"
+echo "4.加速方案"
 echo "直接回车返回上级菜单"
 while :; do echo
 	read -p "请选择： " devc
@@ -97,6 +97,5 @@ fi
 if [[ $devc == 4 ]];then
   wget -N --no-check-certificate "https://raw.githubusercontent.com/chiakge/Linux-NetSpeed/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
 fi
-
 
 exit 0
