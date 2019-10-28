@@ -266,7 +266,7 @@ else
 #    fi
 fi
 cd /usr/local
-git clone https://git.fdos.me/stack/shadowsocksr.git
+git clone https://github.com/shadowsocksr/shadowsocksr.git
 cd ./shadowsocksr
 git checkout manyuser
 git pull
